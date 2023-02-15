@@ -1,5 +1,6 @@
+import TaskCard from '@/components/cards/taskcard/TaskCard';
+import { mockTaskCardProps } from '@/components/cards/taskcard/TaskCard.mocks';
 import Head from 'next/head';
-
 export default function Home() {
   return (
     <>
@@ -11,6 +12,7 @@ export default function Home() {
       </Head>
       <main className="min-h-screen bg-gray-50 dark:bg-slate-700">
         <h1 className="text-xl">Kanban Boards</h1>
+        <TaskCard {...mockTaskCardProps.base} />
       </main>
     </>
   );
