@@ -1,7 +1,7 @@
 import { IBaseTemplate } from '..';
 const BaseTemplate: React.FC<IBaseTemplate> = (props) => {
   const { sampleTextProp } = { ...props };
-  return <div>Hello world!</div>;
+  return <div>{sampleTextProp}</div>;
 };
 
 export default BaseTemplate;
