@@ -2,6 +2,7 @@ import { IBoard } from '..';
 
 const base: IBoard = {
   id: 0,
+  title: 'Design',
   tasks: [
     {
       id: 0,
