@@ -1,6 +1,7 @@
-import TaskCard from '@/components/cards/taskcard/TaskCard';
-import { mockTaskCardProps } from '@/components/cards/taskcard/TaskCard.mocks';
+import { BoardContext } from '@/components/boards/BoardContext';
+import ContextBoard from '@/components/boards/context/ContextBoard';
 import Head from 'next/head';
+
 export default function Home() {
   return (
     <>
@@ -10,9 +11,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen bg-gray-50 dark:bg-slate-700">
+      <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
         <h1 className="text-xl">Kanban Boards</h1>
-        <TaskCard {...mockTaskCardProps.base} />
+        <BoardContext>
+          <ContextBoard />
+        </BoardContext>
       </main>
     </>
   );
