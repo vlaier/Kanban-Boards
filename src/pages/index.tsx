@@ -1,5 +1,5 @@
-import { BoardContext } from '@/components/boards/BoardContext';
-import ContextBoard from '@/components/boards/context/ContextBoard';
+import Board from '@/components/boards/basic/Board';
+import { mockBasicBoardProps } from '@/components/boards/basic/Board.mocks';
 import Head from 'next/head';
 
 export default function Home() {
@@ -12,10 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
-        <h1 className="text-xl">Kanban Boards</h1>
-        <BoardContext>
-          <ContextBoard />
-        </BoardContext>
+        <h1 className="text-xl">Kanban Board</h1>
+        <Board {...mockBasicBoardProps.base} />
       </main>
     </>
   );

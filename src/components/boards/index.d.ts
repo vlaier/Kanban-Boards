@@ -7,7 +7,7 @@ export interface IBoard {
 }
 export type IBoardAction =
   | { type: 'addTask'; task: ITaskCard }
-  | { type: 'removeTask'; taskId: number };
+  | { type: 'removeTask'; taskId: string };
 
 export interface IBoardState extends IBoard {
   addTask: (item: ITaskCard) => void;
