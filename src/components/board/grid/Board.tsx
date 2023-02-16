@@ -39,11 +39,15 @@ const Board: React.FC<ITaskCard[]> = (props) => {
     const elements = filtredTasks.map((task) => {
       return (
         <DraggableItem id={task.id} key={task.id}>
-          {task.title}
+          <div className="bg-gray-500/80 backdrop-blur-md w-60 prose flex flex-col p-4 rounded-lg">
+            <h3>{task.title}</h3>
+            {task.description && <p>{task.description}</p>}
+            <span>{task.category}</span>
+          </div>
         </DraggableItem>
       );
     });
-    return <div>{elements}</div>;
+    return <div className="flex flex-col gap-2">{elements}</div>;
   };
   return (
     <DndContext
@@ -72,6 +76,7 @@ const Board: React.FC<ITaskCard[]> = (props) => {
       </div>
       <form className="flex flex-col p-8 bg-gray-300 rounded-lg gap-4">
         <input
+          required={true}
           type="text"
           placeholder="id"
           value={newTask.id}
@@ -109,7 +114,7 @@ const Board: React.FC<ITaskCard[]> = (props) => {
           }}
         >
           Add
-        </button>{' '}
+        </button>
       </form>
       <button
         className="fixed bg-gray-300 h-16 w-16 rounded-full text-white bottom-16 right-4 "

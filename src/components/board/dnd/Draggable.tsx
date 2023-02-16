@@ -11,12 +11,7 @@ export const DraggableItem: React.FC<{
       }
     : undefined;
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      className="border-green-300 border-2 w-fit flex items-center justify-center bg-purple-400/80"
-    >
+    <div ref={setNodeRef} style={style} {...listeners}>
       {children}
     </div>
   );

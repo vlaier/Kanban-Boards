@@ -8,6 +8,7 @@ const base: ITaskCard[] = [
   {
     id: '0',
     title: 'First task',
+    description: " first description ever I'm a visionary",
     category: 'toDo',
   },
   {
