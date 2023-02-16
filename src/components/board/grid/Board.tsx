@@ -28,8 +28,12 @@ const Board: React.FC<ITaskCard[]> = (props) => {
     tasksReducer,
     mockBasicBoardProps.base
   );
-  const [showForm, setShowForm] = useState(false);
 
+  const [newTask, setNewTask] = useState({
+    id: 'uniqueId',
+    title: 'new Task',
+    category: 'toDo',
+  });
   const TaskElements: React.FC<{ category: string }> = ({ category }) => {
     const filtredTasks = tasks.filter((task) => task.category === category);
     const elements = filtredTasks.map((task) => {
@@ -66,8 +70,51 @@ const Board: React.FC<ITaskCard[]> = (props) => {
           <TaskElements category={'done'} />
         </Droppable>
       </div>
-
-      <button className="fixed bg-gray-300 h-16 w-16 rounded-full text-white bottom-16 right-4 ">
+      <form className="flex flex-col p-8 bg-gray-300 rounded-lg gap-4">
+        <input
+          type="text"
+          placeholder="id"
+          value={newTask.id}
+          onChange={(e) => {
+            setNewTask((prev) => {
+              return { ...prev, id: e.target.value };
+            });
+          }}
+        />
+        <input
+          type="text"
+          placeholder="title"
+          value={newTask.title}
+          onChange={(e) => {
+            setNewTask((prev) => {
+              return { ...prev, title: e.target.value };
+            });
+          }}
+        />
+        <input
+          type="text"
+          placeholder="category"
+          value={newTask.category}
+          onChange={(e) => {
+            setNewTask((prev) => {
+              return { ...prev, category: e.target.value };
+            });
+          }}
+        />
+        <button
+          className=" bg-gray-600 h-16 w-16 rounded-full text-white "
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch({ type: 'add', task: newTask });
+          }}
+        >
+          Add
+        </button>{' '}
+      </form>
+      <button
+        className="fixed bg-gray-300 h-16 w-16 rounded-full text-white bottom-16 right-4 "
+        onClick={() => dispatch({ type: 'add', task: newTask })}
+      >
         Add
       </button>
     </DndContext>
