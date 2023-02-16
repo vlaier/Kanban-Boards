@@ -1,5 +1,5 @@
-import Board from '@/components/boards/basic/Board';
-import { mockBasicBoardProps } from '@/components/boards/basic/Board.mocks';
+import Board from '@/components/board/grid/Board';
+import { mockBasicBoardProps } from '@/components/board/grid/Board.mocks';
 import Head from 'next/head';
 
 export default function Home() {
