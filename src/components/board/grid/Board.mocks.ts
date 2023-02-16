@@ -20,6 +20,21 @@ const base: ITaskCard[] = [
     title: "I'm magic tada",
     category: 'toDo',
   },
+  {
+    id: '3',
+    title: 'First task',
+    category: 'toDo',
+  },
+  {
+    id: '4',
+    title: "I'm questing here",
+    category: 'toDo',
+  },
+  {
+    id: '5',
+    title: "I'm magic tada",
+    category: 'toDo',
+  },
 ];
 export const mockBasicBoardProps = {
   base,

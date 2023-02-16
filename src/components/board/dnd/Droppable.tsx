@@ -17,7 +17,7 @@ export const Droppable: React.FC<{
         isOver
           ? 'border-2 bg-gray-300 border-gray-600/80'
           : 'border border-gray-200'
-      } h-32 w-64 bg-gray-200 rounded-lg flex items-center justify-center`}
+      }   bg-gray-200 rounded-lg flex items-center justify-center h-fit`}
     >
       {children}
     </div>

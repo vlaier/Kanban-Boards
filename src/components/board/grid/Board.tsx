@@ -1,29 +1,9 @@
-import { DndContext, useDraggable } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import { Reducer, useReducer, useState } from 'react';
+import { DraggableItem } from '../dnd/Draggable';
 import { Droppable } from '../dnd/Droppable';
 import { ITaskCard, mockBasicBoardProps } from './Board.mocks';
 
-const DraggableItem: React.FC<{ id: string; children: React.ReactNode }> = ({
-  id,
-  children,
-}) => {
-  const { isDragging, setNodeRef, listeners, transform } = useDraggable({ id });
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      className="border-green-300 border-2 w-fit flex items-center justify-center bg-purple-400/80"
-    >
-      {children}
-    </div>
-  );
-};
 const tasksReducer = (tasks: ITaskCard[], action: TaskAction): ITaskCard[] => {
   switch (action.type) {
     case 'change_category': {
@@ -75,7 +55,7 @@ const Board: React.FC<ITaskCard[]> = (props) => {
         console.log(active);
       }}
     >
-      <div className="grid grid-cols-3 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 space-x-4 px-16">
         <Droppable id="toDos" data={{ category: 'toDo' }}>
           <TaskElements category={'toDo'} />
         </Droppable>
