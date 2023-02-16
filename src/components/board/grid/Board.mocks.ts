@@ -1,40 +1,27 @@
-export interface ITaskCard {
-  id: string;
-  title: string;
-  description?: string;
-  category: string;
-}
-const base: ITaskCard[] = [
+import { KanbanCard } from '..';
+const base: KanbanCard[] = [
   {
     id: '0',
     title: 'First task',
     description: " first description ever I'm a visionary",
     category: 'toDo',
+    blockedTasks: [],
+    isPriority: false,
+    tags: [],
+    timeRequired: 3,
   },
   {
     id: '1',
-    title: "I'm questing here",
+    title: 'No time for the wicked',
+    description: 'Fix mental health crisis',
     category: 'toDo',
-  },
-  {
-    id: '2',
-    title: "I'm magic tada",
-    category: 'toDo',
-  },
-  {
-    id: '3',
-    title: 'First task',
-    category: 'toDo',
-  },
-  {
-    id: '4',
-    title: "I'm questing here",
-    category: 'toDo',
-  },
-  {
-    id: '5',
-    title: "I'm magic tada",
-    category: 'toDo',
+    blockedTasks: [],
+    isPriority: true,
+    tags: [
+      { id: '01d', name: 'crisis' },
+      { id: '012d', name: 'bug fix' },
+    ],
+    timeRequired: 5,
   },
 ];
 export const mockBasicBoardProps = {

@@ -1,10 +1,14 @@
 import { DndContext } from '@dnd-kit/core';
 import { Reducer, useReducer, useState } from 'react';
+import { KanbanCard } from '..';
 import { DraggableItem } from '../dnd/Draggable';
 import { Droppable } from '../dnd/Droppable';
-import { ITaskCard, mockBasicBoardProps } from './Board.mocks';
+import { mockBasicBoardProps } from './Board.mocks';
 
-const tasksReducer = (tasks: ITaskCard[], action: TaskAction): ITaskCard[] => {
+const tasksReducer = (
+  tasks: KanbanCard[],
+  action: TaskAction
+): KanbanCard[] => {
   switch (action.type) {
     case 'change_category': {
       const updatedTasks = tasks.map((task) => {
@@ -21,18 +25,23 @@ const tasksReducer = (tasks: ITaskCard[], action: TaskAction): ITaskCard[] => {
   }
 };
 type TaskAction =
-  | { type: 'add'; task: ITaskCard }
-  | { type: 'change_category'; id: ITaskCard['id']; newCategory: string };
-const Board: React.FC<ITaskCard[]> = (props) => {
-  const [tasks, dispatch] = useReducer<Reducer<ITaskCard[], TaskAction>>(
+  | { type: 'add'; task: KanbanCard }
+  | { type: 'change_category'; id: KanbanCard['id']; newCategory: string };
+const Board: React.FC<KanbanCard[]> = (props) => {
+  const [tasks, dispatch] = useReducer<Reducer<KanbanCard[], TaskAction>>(
     tasksReducer,
     mockBasicBoardProps.base
   );
 
-  const [newTask, setNewTask] = useState({
+  const [newTask, setNewTask] = useState<KanbanCard>({
     id: 'uniqueId',
     title: 'new Task',
     category: 'toDo',
+    isPriority: false,
+    blockedTasks: [],
+    description: 'This tasked was just created',
+    tags: [],
+    timeRequired: 1,
   });
   const TaskElements: React.FC<{ category: string }> = ({ category }) => {
     const filtredTasks = tasks.filter((task) => task.category === category);
@@ -64,15 +73,25 @@ const Board: React.FC<ITaskCard[]> = (props) => {
       }}
     >
       <div className="grid grid-cols-1 md:grid-cols-3 space-x-4 px-16">
-        <Droppable id="toDos" data={{ category: 'toDo' }}>
-          <TaskElements category={'toDo'} />
-        </Droppable>
-        <Droppable id="inProgress" data={{ category: 'inProgress' }}>
-          <TaskElements category={'inProgress'} />
-        </Droppable>
-        <Droppable id="done" data={{ category: 'done' }}>
-          <TaskElements category={'done'} />
-        </Droppable>
+        <div>
+          <h3>Planned</h3>
+          <Droppable id="toDos" data={{ category: 'toDo' }}>
+            <TaskElements category={'toDo'} />
+          </Droppable>{' '}
+        </div>
+        <div>
+          <h3>In Progress</h3>
+          <Droppable id="inProgress" data={{ category: 'inProgress' }}>
+            <TaskElements category={'inProgress'} />
+          </Droppable>
+        </div>
+        <div>
+          <h3>Done</h3>
+
+          <Droppable id="done" data={{ category: 'done' }}>
+            <TaskElements category={'done'} />
+          </Droppable>
+        </div>
       </div>
       <form className="flex flex-col p-8 bg-gray-300 rounded-lg gap-4">
         <input

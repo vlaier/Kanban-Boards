@@ -1,15 +1,14 @@
-import { ITaskCard } from '../cards';
-
-export interface IBoard {
-  id: number;
+export interface KanbanCard {
+  id: string;
   title: string;
-  tasks: ITaskCard[];
+  description: string;
+  timeRequired: number;
+  isPriority: boolean;
+  category: string;
+  tags: Tag[];
+  blockedTasks: KanbanCard[];
 }
-export type IBoardAction =
-  | { type: 'addTask'; task: ITaskCard }
-  | { type: 'removeTask'; taskId: string };
-
-export interface IBoardState extends IBoard {
-  addTask: (item: ITaskCard) => void;
-  removeTask: (item: ITaskCard) => void;
+interface Tag {
+  id: string;
+  name: string;
 }
