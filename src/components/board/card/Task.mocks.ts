@@ -3,7 +3,7 @@ const base: KanbanCard = {
   id: '0',
   title: 'First task',
   description: " first description ever I'm a visionary",
-  progress: 'toDo',
+  category: 'toDo',
   blockedTasks: [],
   isPriority: false,
   tags: [],

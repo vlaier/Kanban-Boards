@@ -5,12 +5,11 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { KanbanCard } from '..';
 import { useTasksDispatch } from '../BoardContext';
 
 import { Category } from '../section/Category';
 
-const Board: React.FC<KanbanCard[]> = (props) => {
+const Board: React.FC = () => {
   const dispatch = useTasksDispatch();
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -19,14 +18,12 @@ const Board: React.FC<KanbanCard[]> = (props) => {
       },
     })
   );
-
   const handleDragEnd: (event: DragEndEvent) => void = ({ active, over }) => {
     if (over && over.data.current) {
       dispatch({
-        type: 'update_progress',
+        type: 'changeCategory',
         id: active.id as string,
-
-        updatedProgress: over.data.current.category,
+        newCategory: over.data.current.category,
       });
     }
   };

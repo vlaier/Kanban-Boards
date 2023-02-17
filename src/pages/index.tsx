@@ -1,4 +1,5 @@
 import { BoardContextProvider } from '@/components/board/BoardContext';
+import { TaskFormModal } from '@/components/board/form/TaskForm';
 import Board from '@/components/board/grid/Board';
 import { mockBasicBoardProps } from '@/components/board/grid/Board.mocks';
 import Head from 'next/head';
@@ -15,7 +16,8 @@ export default function Home() {
       <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
         <h1 className="text-xl">Kanban Board</h1>
         <BoardContextProvider initialTasks={mockBasicBoardProps.base}>
-          <Board {...mockBasicBoardProps.base} />
+          <Board />
+          <TaskFormModal />
         </BoardContextProvider>
       </main>
     </>

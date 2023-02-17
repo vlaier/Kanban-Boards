@@ -6,7 +6,7 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
   const tasks = useTasks();
   const { id, category } = { ...props };
   const categoryTasks = tasks.filter((task) => {
-    return task.progress === category;
+    return task.category === category;
   });
   const tasksElements = categoryTasks.map((task) => {
     return <TaskCard task={task} key={task.id} />;
