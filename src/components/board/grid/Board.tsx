@@ -7,8 +7,9 @@ import {
 } from '@dnd-kit/core';
 import { Reducer, useReducer, useState } from 'react';
 import { KanbanCard, TaskAction } from '..';
-import { DraggableItem } from '../dnd/Draggable';
+
 import { Droppable } from '../dnd/Droppable';
+import { Category } from '../section/Category';
 import { mockBasicBoardProps } from './Board.mocks';
 
 const Board: React.FC<KanbanCard[]> = (props) => {
@@ -34,42 +35,7 @@ const Board: React.FC<KanbanCard[]> = (props) => {
       },
     })
   );
-  const TaskCard: React.FC<{ task: KanbanCard }> = (props) => {
-    const { task } = { ...props };
 
-    return (
-      <DraggableItem id={task.id}>
-        <div className="rounded-lg border border-gray-400/20 shadow-sm  w-full overflow-hidden bg-zinc-300 divide-y divide-zinc-400  ">
-          <div className="py-1 px-2 ">
-            <div className="flex justify-start gap-2 items-center ">
-              <span className="shadow-inner shadow-gray-400 text-sm text-gray-600 bg-gray-200 w-4 h-4 p-3 rounded-full flex items-center justify-center">
-                {task.id}
-              </span>
-              <h3 className="font-bold shadow-inner shadow-gray-400 p-1 bg-gray-200 rounded-xl">
-                {task.title}
-              </h3>
-            </div>
-            <div className="flex justify-between items-baseline ">
-              {task.description}
-            </div>
-          </div>
-          <button
-            className="p-2"
-            onClick={() => dispatch({ type: 'remove', id: task.id })}
-          >
-            Remove
-          </button>
-        </div>
-      </DraggableItem>
-    );
-  };
-  const TaskElements: React.FC<{ progress: string }> = ({ progress }) => {
-    const filtredTasks = tasks.filter((task) => task.progress === progress);
-    const elements = filtredTasks.map((task) => {
-      return <TaskCard task={task} key={task.id} />;
-    });
-    return <div className="flex flex-col gap-2 p-2 w-full">{elements}</div>;
-  };
   return (
     <DndContext
       onDragEnd={({ over, active }) => {
@@ -89,20 +55,24 @@ const Board: React.FC<KanbanCard[]> = (props) => {
         <div>
           <h3>Planned</h3>
           <Droppable id="toDos" data={{ progress: 'toDo' }}>
-            <TaskElements progress={'toDo'} />
+            <Category progress={'toDo'} tasks={tasks} dispatch={dispatch} />
           </Droppable>
         </div>
         <div>
           <h3>In Progress</h3>
           <Droppable id="inProgress" data={{ progress: 'inProgress' }}>
-            <TaskElements progress={'inProgress'} />
+            <Category
+              progress={'inProgress'}
+              tasks={tasks}
+              dispatch={dispatch}
+            />
           </Droppable>
         </div>
         <div>
           <h3>Done</h3>
 
           <Droppable id="done" data={{ progress: 'done' }}>
-            <TaskElements progress={'done'} />
+            <Category progress={'done'} tasks={tasks} dispatch={dispatch} />
           </Droppable>
         </div>
       </div>
