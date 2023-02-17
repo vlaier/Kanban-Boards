@@ -1,21 +1,19 @@
-import { Dispatch } from 'react';
-import { KanbanCard, TaskAction } from '..';
+import { useTasks } from '../BoardContext';
 import { TaskCard } from '../card/Task';
+import { Droppable } from '../dnd/Droppable';
 
-export const Category: React.FC<{
-  tasks: KanbanCard[];
-  progress: string;
-  dispatch: Dispatch<TaskAction>;
-}> = ({ tasks, progress, dispatch }) => {
-  const filtredTasks = tasks.filter((task) => task.progress === progress);
-  const elements = filtredTasks.map((task) => {
-    return (
-      <TaskCard
-        task={task}
-        key={task.id}
-        remove={() => dispatch({ type: 'remove', id: task.id })}
-      />
-    );
+export const Category: React.FC<{ id: string; category: string }> = (props) => {
+  const tasks = useTasks();
+  const { id, category } = { ...props };
+  const categoryTasks = tasks.filter((task) => {
+    return task.progress === category;
   });
-  return <div className="flex flex-col gap-2 p-2 w-full">{elements}</div>;
+  const TasksElements = categoryTasks.map((task) => {
+    return <TaskCard task={task} key={task.id} />;
+  });
+  return (
+    <Droppable id={category} data={{ category }}>
+      {TasksElements}
+    </Droppable>
+  );
 };

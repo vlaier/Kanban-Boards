@@ -1,11 +1,10 @@
 import { KanbanCard } from '..';
+import { useTasksDispatch } from '../BoardContext';
 import { DraggableItem } from '../dnd/Draggable';
 
-export const TaskCard: React.FC<{ task: KanbanCard; remove: () => void }> = (
-  props
-) => {
-  const { task, remove } = { ...props };
-
+export const TaskCard: React.FC<{ task: KanbanCard }> = (props) => {
+  const { task } = { ...props };
+  const dispatch = useTasksDispatch();
   return (
     <DraggableItem id={task.id}>
       <div className="rounded-lg border border-gray-400/20 shadow-sm  w-full overflow-hidden bg-zinc-300 divide-y divide-zinc-400  ">
@@ -22,7 +21,12 @@ export const TaskCard: React.FC<{ task: KanbanCard; remove: () => void }> = (
             {task.description}
           </div>
         </div>
-        <button className="p-2" onClick={remove}>
+        <button
+          className="p-2"
+          onClick={() => {
+            dispatch({ type: 'remove', id: task.id });
+          }}
+        >
           Remove
         </button>
       </div>
