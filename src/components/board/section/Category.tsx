@@ -8,12 +8,12 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
   const categoryTasks = tasks.filter((task) => {
     return task.progress === category;
   });
-  const TasksElements = categoryTasks.map((task) => {
+  const tasksElements = categoryTasks.map((task) => {
     return <TaskCard task={task} key={task.id} />;
   });
   return (
     <Droppable id={category} data={{ category }}>
-      {TasksElements}
+      <div className="space-y-2  py-4 px-2 w-full ">{tasksElements}</div>
     </Droppable>
   );
 };
