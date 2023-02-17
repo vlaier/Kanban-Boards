@@ -51,24 +51,23 @@ export const TaskFormModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Add Task
                   </Dialog.Title>
+
                   <div className="mt-2">
                     <TaskForm id="test" />
                   </div>
-
-                  <div className="mt-4">
+                  <div className="mt-4 absolute top-0 right-6">
                     <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md  border border-gray-400 text-gray-400 px-4 py-2 text-sm font-medium  hover:text-gray-800 hover:border-gray-800  focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Add
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -81,7 +80,7 @@ export const TaskFormModal = () => {
   );
 };
 
-export const TaskForm: React.FC<{ id: string }> = ({ id }) => {
+export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
   const tasks = useTasks();
   const dispatch = useTasksDispatch();
   const {
@@ -90,8 +89,9 @@ export const TaskForm: React.FC<{ id: string }> = ({ id }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<KanbanCardLite>();
+  const onSubmit = handleSubmit((data) => console.log(data));
   return (
-    <form className="grid grid-cols-6 gap-6">
+    <form className="grid grid-cols-6 gap-6" onSubmit={onSubmit}>
       <div className="col-span-6 ">
         <label
           htmlFor="title"
@@ -100,6 +100,7 @@ export const TaskForm: React.FC<{ id: string }> = ({ id }) => {
           Title
         </label>
         <input
+          required
           type="text"
           id="title"
           autoComplete="given-title"
@@ -120,90 +121,35 @@ export const TaskForm: React.FC<{ id: string }> = ({ id }) => {
           id="description"
           autoComplete="given-description"
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm "
+          rows={3}
         />
-      </div>
-
-      <div className="col-span-6 sm:col-span-3">
-        <label
-          htmlFor="country"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Country
-        </label>
-        <select
-          id="country"
-          name="country"
-          autoComplete="country-name"
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        >
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </select>
       </div>
 
       <div className="col-span-6">
         <label
-          htmlFor="street-address"
+          htmlFor="country"
           className="block text-sm font-medium text-gray-700"
         >
-          Street address
+          Category
         </label>
-        <input
-          type="text"
-          name="street-address"
-          id="street-address"
-          autoComplete="street-address"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
+        <select
+          id="category"
+          {...register('category')}
+          autoComplete="category-name"
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+        >
+          <option>To Do</option>
+          <option>Inprogress</option>
+          <option>Done</option>
+        </select>
       </div>
-
-      <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-        <label
-          htmlFor="city"
-          className="block text-sm font-medium text-gray-700"
+      <div className="col-span-6">
+        <button
+          type="submit"
+          className="inline-flex justify-center rounded-md border border-transparent bg-gray-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          City
-        </label>
-        <input
-          type="text"
-          name="city"
-          id="city"
-          autoComplete="address-level2"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
-
-      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-        <label
-          htmlFor="region"
-          className="block text-sm font-medium text-gray-700"
-        >
-          State / Province
-        </label>
-        <input
-          type="text"
-          name="region"
-          id="region"
-          autoComplete="address-level1"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
-
-      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-        <label
-          htmlFor="postal-code"
-          className="block text-sm font-medium text-gray-700"
-        >
-          ZIP / Postal code
-        </label>
-        <input
-          type="text"
-          name="postal-code"
-          id="postal-code"
-          autoComplete="postal-code"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
+          Add
+        </button>
       </div>
     </form>
   );
