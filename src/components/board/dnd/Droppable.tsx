@@ -15,7 +15,7 @@ export const Droppable: React.FC<{
       ref={setNodeRef}
       className={`${
         isOver
-          ? 'border-2 bg-gray-300 border-gray-600/80'
+          ? 'border bg-gray-100 border-gray-600/80'
           : 'border border-gray-200'
       }   bg-gray-200 rounded-lg flex items-center justify-center h-fit`}
     >

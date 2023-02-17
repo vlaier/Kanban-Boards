@@ -4,11 +4,16 @@ export interface KanbanCard {
   description: string;
   timeRequired: number;
   isPriority: boolean;
-  category: string;
+  progress: string;
   tags: Tag[];
   blockedTasks: KanbanCard[];
+  due?: Date;
 }
 interface Tag {
   id: string;
   name: string;
 }
+type TaskAction =
+  | { type: 'add'; task: KanbanCard }
+  | { type: 'update_progress'; id: KanbanCard['id']; updatedProgress: string }
+  | { type: 'remove'; id: KanbanCard['id'] };
