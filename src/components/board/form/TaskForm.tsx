@@ -89,7 +89,9 @@ export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<KanbanCardLite>();
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    dispatch({ type: 'add', task: data });
+  });
   return (
     <form className="grid grid-cols-6 gap-6" onSubmit={onSubmit}>
       <div className="col-span-6 ">
@@ -137,9 +139,9 @@ export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
           autoComplete="category-name"
           className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
         >
-          <option>To Do</option>
-          <option>Inprogress</option>
-          <option>Done</option>
+          <option value="toDo">To Do</option>
+          <option value="inProgress">Inprogress</option>
+          <option value="done">Done</option>
         </select>
       </div>
       <div className="col-span-6">
