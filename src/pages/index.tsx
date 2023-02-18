@@ -2,9 +2,34 @@ import { BoardContextProvider } from '@/components/board/BoardContext';
 import { TaskFormModal } from '@/components/board/form/TaskForm';
 import Board from '@/components/board/grid/Board';
 import { mockBasicBoardProps } from '@/components/board/grid/Board.mocks';
+import { Switch } from '@headlessui/react';
 import Head from 'next/head';
+import { Dispatch, SetStateAction, useState } from 'react';
+const Toggle: React.FC<{
+  enabled: boolean;
+  setEnabled: Dispatch<SetStateAction<boolean>>;
+}> = ({ enabled, setEnabled }) => {
+  return (
+    <div className="py-16">
+      <Switch
+        checked={enabled}
+        onChange={setEnabled}
+        className={`${enabled ? 'bg-teal-900' : 'bg-teal-700'}
+          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+      >
+        <span className="sr-only">Use setting</span>
+        <span
+          aria-hidden="true"
+          className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+        />
+      </Switch>
+    </div>
+  );
+};
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(true);
   return (
     <>
       <Head>
@@ -13,13 +38,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
-        <h1 className="text-xl">Kanban Board</h1>
-        <BoardContextProvider initialTasks={mockBasicBoardProps.base}>
-          <Board />
-          <TaskFormModal />
-        </BoardContextProvider>
-      </main>
+      <div className={`${isDark && 'dark'}`}>
+        <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
+          <Toggle enabled={isDark} setEnabled={setIsDark} />
+          <h1 className="text-xl">Kanban Board</h1>
+          <BoardContextProvider initialTasks={mockBasicBoardProps.base}>
+            <Board />
+            <TaskFormModal />
+          </BoardContextProvider>
+        </main>
+      </div>
     </>
   );
 }
