@@ -9,14 +9,16 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
     return task.category === category;
   });
   const tasksElements = categoryTasks.map((task) => {
-    return <TaskCard task={task} key={task.id} />;
+    return <TaskCard {...task} key={task.id} />;
   });
   return (
     <Droppable id={category} data={{ category }}>
       <div className="w-full">
         <div className="space-y-2   py-4 px-2 w-full ">{tasksElements}</div>
         <div className="space-y-2   py-4 px-2 w-full ">
-          <button className="border border-gray-400">Add task</button>
+          <button className="rounded-lg shadow-inner dark:shadow-slate-600 shadow-gray-400  w-full overflow-hidden bg-gray-100 dark:bg-slate-400/60 py-4 dark:text-gray-300">
+            Add task
+          </button>
         </div>
       </div>
     </Droppable>
