@@ -16,11 +16,13 @@ export const tasksReducer = (
       return updatedTasks;
     }
     case 'add': {
-      const uuid: () => string = require('uuid');
+      const uuid = require('uuid');
+
       const newTask = {
         ...action.task,
-        id: uuid(),
+        id: uuid.v4(),
       };
+      console.log([...tasks, newTask]);
       return [...tasks, newTask];
     }
     case 'remove': {
