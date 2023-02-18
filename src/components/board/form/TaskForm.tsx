@@ -100,12 +100,11 @@ export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
           Title
         </label>
         <input
-          required
           type="text"
           id="title"
           autoComplete="given-title"
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          {...register('title')}
+          {...register('title', { required: true })}
         />
       </div>
 

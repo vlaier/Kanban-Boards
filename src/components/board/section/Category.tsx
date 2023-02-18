@@ -13,7 +13,12 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
   });
   return (
     <Droppable id={category} data={{ category }}>
-      <div className="space-y-2  py-4 px-2 w-full ">{tasksElements}</div>
+      <div className="w-full">
+        <div className="space-y-2   py-4 px-2 w-full ">{tasksElements}</div>
+        <div className="space-y-2   py-4 px-2 w-full ">
+          <button className="border border-gray-400">Add task</button>
+        </div>
+      </div>
     </Droppable>
   );
 };
