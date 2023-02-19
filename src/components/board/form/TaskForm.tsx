@@ -3,8 +3,10 @@ import { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { KanbanCardLite } from '..';
 import { useTasks, useTasksDispatch } from '../BoardContext';
-export const TaskFormModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+export const TaskFormModal: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -20,9 +22,9 @@ export const TaskFormModal = () => {
         <button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-gray-300 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="rounded-md bg-gray-300 w-full text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 bg-transparent"
         >
-          Open dialog
+          {children}
         </button>
       </div>
 

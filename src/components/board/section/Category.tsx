@@ -1,6 +1,7 @@
 import { useTasks } from '../BoardContext';
 import { TaskCard } from '../card/Task';
 import { Droppable } from '../dnd/Droppable';
+import { TaskFormModal } from '../form/TaskForm';
 
 export const Category: React.FC<{ id: string; category: string }> = (props) => {
   const tasks = useTasks();
@@ -16,9 +17,11 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
       <div className="w-full">
         <div className="space-y-2   py-4 px-2 w-full ">{tasksElements}</div>
         <div className="space-y-2   py-4 px-2 w-full ">
-          <button className="rounded-lg shadow-inner dark:shadow-slate-600 shadow-gray-400  w-full overflow-hidden bg-gray-100 dark:bg-slate-400/60 py-4 dark:text-gray-300">
-            Add task
-          </button>
+          <TaskFormModal>
+            <button className="rounded-lg shadow-inner dark:shadow-slate-600 shadow-gray-400  w-full overflow-hidden bg-gray-100 dark:bg-slate-400/60 py-4 dark:text-gray-300">
+              Add task
+            </button>
+          </TaskFormModal>
         </div>
       </div>
     </Droppable>

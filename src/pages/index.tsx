@@ -19,13 +19,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`${isDark && 'dark'}`}>
-        <main className="min-h-screen bg-gray-50 dark:bg-slate-700 ">
-          <Navbar Toggle={Switch} title="Kanban" />
-
-          <h1 className="text-xl ">Kanban Board</h1>
+        <Navbar Toggle={Switch} title="Kanban" />
+        <main className="min-h-screen bg-gray-50 dark:bg-slate-700 px-16 dark:text-gray-50">
+          <h2 className="text-xl font-bold mb-8">Your Project</h2>
           <BoardContextProvider initialTasks={mockBasicBoardProps.base}>
             <Board />
-            <TaskFormModal />
           </BoardContextProvider>
         </main>
       </div>
