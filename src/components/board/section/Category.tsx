@@ -18,9 +18,9 @@ export const Category: React.FC<{ id: string; category: string }> = (props) => {
         <div className="space-y-2   py-4 px-2 w-full ">{tasksElements}</div>
         <div className="space-y-2   py-4 px-2 w-full ">
           <TaskFormModal>
-            <button className="rounded-lg shadow-inner dark:shadow-slate-600 shadow-gray-400  w-full overflow-hidden bg-gray-100 dark:bg-slate-400/60 py-4 dark:text-gray-300 text-gray-700 font-bold">
+            <div className="rounded-lg shadow-inner dark:shadow-slate-600 shadow-gray-400 py-3  w-full overflow-hidden bg-gray-100 dark:bg-slate-400/60  dark:text-gray-300 text-gray-700 font-bold">
               Add task
-            </button>
+            </div>
           </TaskFormModal>
         </div>
       </div>
