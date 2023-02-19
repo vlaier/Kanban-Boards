@@ -8,7 +8,6 @@ export const tasksReducer = (
     case 'changeCategory': {
       const updatedTasks = tasks.map((task) => {
         if (task.id === action.id) {
-          console.log(task);
           return { ...task, category: action.newCategory };
         }
         return { ...task };
@@ -22,7 +21,6 @@ export const tasksReducer = (
         ...action.task,
         id: uuid.v4(),
       };
-      console.log([...tasks, newTask]);
       return [...tasks, newTask];
     }
     case 'remove': {
