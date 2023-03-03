@@ -1,11 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { KanbanCardLite } from '..';
+import { KanbanCard } from '..';
 import { useTasks, useTasksDispatch } from '../BoardContext';
-export const TaskFormModal: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const TaskFormModal: React.FC<{
+  children: React.ReactNode;
+  type?: 'add' | 'editTask';
+}> = ({ children, type = 'add' }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -57,9 +58,7 @@ export const TaskFormModal: React.FC<{ children: React.ReactNode }> = ({
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Add Task
-                  </Dialog.Title>
+                  ></Dialog.Title>
 
                   <div className="mt-2">
                     <TaskForm id="test" />
@@ -82,7 +81,10 @@ export const TaskFormModal: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
+export const TaskForm: React.FC<{ id?: string; type?: 'add' | 'editTask' }> = ({
+  id = '',
+  type = 'add',
+}) => {
   const tasks = useTasks();
   const dispatch = useTasksDispatch();
   const {
@@ -90,9 +92,9 @@ export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<KanbanCardLite>();
+  } = useForm<KanbanCard>();
   const onSubmit = handleSubmit((data) => {
-    dispatch({ type: 'add', task: data });
+    dispatch({ type, task: data });
   });
   return (
     <form className="grid grid-cols-6 gap-6" onSubmit={onSubmit}>
@@ -151,7 +153,7 @@ export const TaskForm: React.FC<{ id?: string }> = ({ id = '' }) => {
           type="submit"
           className="inline-flex justify-center rounded-md border border-transparent bg-gray-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          Add
+          {type}
         </button>
       </div>
     </form>
