@@ -5,19 +5,29 @@ import {
   ReactNode,
   Reducer,
   useContext,
+  useEffect,
   useReducer,
 } from 'react';
 import { KanbanCard, TaskAction } from '.';
 const BoardContext = createContext<KanbanCard[] | null>(null);
 const BoardDispatchContext = createContext<Dispatch<TaskAction> | null>(null);
+
 export const BoardContextProvider: React.FC<{
   children: ReactNode;
   initialTasks?: KanbanCard[];
 }> = ({ children, initialTasks = [] }) => {
+  const loadTasks =
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('tasks') || '[]')
+      : [];
   const [tasks, dispatch] = useReducer<Reducer<KanbanCard[], TaskAction>>(
     tasksReducer,
-    initialTasks
+    loadTasks
   );
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
   return (
     <BoardContext.Provider value={tasks}>
       <BoardDispatchContext.Provider value={dispatch}>

@@ -9,21 +9,14 @@ export interface KanbanCard {
   blockedTasks?: KanbanCard[];
   due?: Date;
 }
-export interface KanbanCardLite {
-  title: string;
-  description?: string;
-  timeRequired?: number;
-  isPriority?: boolean;
-  category: string;
-  tags?: Tag[];
-  blockedTasks?: KanbanCard[];
-  due?: Date;
-}
+
 interface Tag {
   id: string;
   name: string;
 }
 type TaskAction =
-  | { type: 'add'; task: KanbanCardLite }
+  | { type: 'add'; task: KanbanCard }
   | { type: 'changeCategory'; id: KanbanCard['id']; newCategory: string }
-  | { type: 'remove'; id: KanbanCard['id'] };
+  | { type: 'remove'; id: KanbanCard['id'] }
+  | { type: 'editTask'; task: KanbanCard }
+  | { type: 'loadTasks'; tasks: KanbanCard[] };
